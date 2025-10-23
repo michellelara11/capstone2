@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clever Clothing - Admin Dashboard</title>
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-container">
+            <div class="login-header">
+                <div class="logo">
+                    <img src="https://placeholder-image-service.onrender.com/image/50x50?prompt=Clever Clothing logo with modern typography and clothing icon&id=0b4be62a-4821-4662-84b2-6709a973775a&customer_id=cus_T2H2vjvk1p7H6d" alt="Clever Clothing logo with modern design and professional appearance" class="logo-image">
+                    <span>CLEVER CLOTHING</span>
+                </div>
+                <h2>Admin Dashboard</h2>
+            </div>
+            
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-input-container">
+                        <input type="password" id="password" name="password" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword()">
+                            <i class="fas fa-eye" id="passwordToggleIcon"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <button type="submit" class="login-btn">
+                    <span class="btn-text">Login</span>
+                    <div class="loading-spinner" style="display: none;"></div>
+                </button>
+                
+                <div id="loginError" class="error-message" style="display: none;"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="dashboard" style="display: none;">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <div class="logo">
+                    <img src="https://placeholder-image-service.onrender.com/image/50x50?prompt=Clever Clothing logo with modern typography and clothing icon&id=0b4be62a-4821-4662-84b2-6709a973775a&customer_id=cus_T2H2vjvk1p7H6d" alt="Clever Clothing logo with modern design and professional appearance" class="logo-image">
+                    <span>CLEVER CLOTHING</span>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <div class="notification-bell" onclick="adminDashboard.toggleNotifications()">
+                    <i class="fas fa-bell"></i>
+                    <span id="notificationCount" class="notification-badge" style="display: none;">0</span>
+                </div>
+                <div class="user-info">
+                    <span id="currentUser" class="username"></span>
+                    <span id="userRole" class="user-role"></span>
+                </div>
+                <button id="logoutBtn" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+        </header>
+
+        <!-- Notification Dropdown -->
+        <div id="notificationDropdown" class="notification-dropdown" style="display: none;">
+            <div class="notification-header">
+                <h4>Notifications</h4>
+                <button onclick="adminDashboard.markAllRead()" class="mark-read-btn">Mark All Read</button>
+            </div>
+            <div id="notificationList" class="notification-list">
+                <div class="no-notifications">No notifications</div>
+            </div>
+        </div>
+
+        <div class="dashboard-container">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="#dashboard-overview" class="nav-link active" data-section="dashboard">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="productsNavItem">
+                            <a href="#products" class="nav-link" data-section="products">
+                                <i class="fas fa-box"></i>
+                                <span>Products</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="ordersNavItem">
+                            <a href="#orders" class="nav-link" data-section="orders">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span>Orders</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="invoicesNavItem">
+                            <a href="#invoices" class="nav-link" data-section="invoices">
+                                <i class="fas fa-file-invoice"></i>
+                                <span>Invoices</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="customersNavItem">
+                            <a href="#customers" class="nav-link" data-section="customers">
+                                <i class="fas fa-users"></i>
+                                <span>Customers</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="membersNavItem">
+                            <a href="#members" class="nav-link" data-section="members">
+                                <i class="fas fa-user-tie"></i>
+                                <span>Members</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="inventoryNavItem">
+                            <a href="#inventory" class="nav-link" data-section="inventory">
+                                <i class="fas fa-warehouse"></i>
+                                <span>Inventory</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="requestsNavItem">
+                            <a href="#requests" class="nav-link" data-section="requests">
+                                <i class="fas fa-paper-plane"></i>
+                                <span id="requestsNavText">Requests</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="reportsNavItem">
+                            <a href="#reports" class="nav-link" data-section="reports">
+                                <i class="fas fa-file-alt"></i>
+                                <span>Reports</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#analytics" class="nav-link" data-section="analytics">
+                                <i class="fas fa-chart-bar"></i>
+                                <span>Analytics</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="settingsNavItem">
+                            <a href="#settings" class="nav-link" data-section="settings">
+                                <i class="fas fa-cog"></i>
+                                <span>Settings</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Dashboard Overview Section -->
+                <section id="dashboardSection" class="content-section active">
+                    <div class="section-header">
+                        <h1>Dashboard Overview</h1>
+                        <div class="date-info">
+                            <i class="fas fa-calendar"></i>
+                            <span id="currentDate"></span>
+                        </div>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-shopping-bag"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="totalOrders">0</h3>
+                                <p>Total Orders</p>
+                                <span class="stat-trend">+12% from last month</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-peso-sign"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="totalRevenue">₱0</h3>
+                                <p>Total Revenue</p>
+                                <span class="stat-trend">+8% from last month</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="totalCustomers">0</h3>
+                                <p>Total Customers</p>
+                                <span class="stat-trend">+15% from last month</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-box"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="totalProducts">4</h3>
+                                <p>Total Products</p>
+                                <span class="stat-trend">+2 new products</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="quick-actions">
+                        <h2>Quick Actions</h2>
+                        <div class="action-buttons">
+                            <button class="action-btn" onclick="showSection('products')" id="addProductQuick">
+                                <i class="fas fa-plus"></i>
+                                Add Product
+                            </button>
+                            <button class="action-btn" onclick="showSection('orders')">
+                                <i class="fas fa-eye"></i>
+                                View Orders
+                            </button>
+                            <button class="action-btn" onclick="showSection('customers')">
+                                <i class="fas fa-user-plus"></i>
+                                View Customers
+                            </button>
+                            <button class="action-btn" id="addMemberBtn" onclick="showSection('members')">
+                                <i class="fas fa-user-tie"></i>
+                                Add Member
+                            </button>
+                            <button class="action-btn" id="stockRequestQuick" onclick="showSection('requests')" style="display: none;">
+                                <i class="fas fa-paper-plane"></i>
+                                Stock Request
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Recent Orders -->
+                    <div class="recent-orders">
+                        <h2>Recent Orders</h2>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Customer</th>
+                                        <th>Date</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentOrdersBody">
+                                    <tr>
+                                        <td colspan="5" class="no-data">No recent orders</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Products Section -->
+                <section id="productsSection" class="content-section">
+                    <div class="section-header">
+                        <h1>Product Management</h1>
+                        <button id="addProductBtn" class="primary-btn">
+                            <i class="fas fa-plus"></i>
+                            Add Product
+                        </button>
+                    </div>
+
+                    <div class="products-container">
+                        <div class="products-grid" id="productsGrid">
+                            <!-- Products will be loaded here -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Orders Section -->
+                <section id="ordersSection" class="content-section">
+                    <div class="section-header">
+                        <h1>Order Management</h1>
+                        <div class="filter-controls">
+                            <select id="orderStatusFilter" class="filter-select">
+                                <option value="all">All Orders</option>
+                                <option value="pending">Pending</option>
+                                <option value="processing">Processing</option>
+                                <option value="completed">Completed</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Address</th>
+                                    <th>Date</th>
+                                    <th>Items</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Verification</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTableBody">
+                                <tr>
+                                    <td colspan="9" class="no-data">No orders found</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Invoices Section -->
+                <section id="invoicesSection" class="content-section">
+                    <div class="section-header">
+                        <h1>Invoice Management</h1>
+                        <div class="filter-controls">
+                            <select id="invoiceTypeFilter" class="filter-select">
+                                <option value="all">All Invoices</option>
+                                <option value="pre">Pre-Invoices</option>
+                                <option value="real">Real Invoices</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Invoice ID</th>
+                                    <th>Order ID</th>
+                                    <th>Type</th>
+                                    <th>Customer</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Date Created</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="invoicesTableBody">
+                                <tr>
+                                    <td colspan="8" class="no-data">No invoices found</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Customers Section -->
+                <section id="customersSection" class="content-section">
+                    <div class="section-header">
+                        <h1>Customer Management</h1>
+                        <div class="search-controls">
+                            <input type="text" id="customerSearch" class="search-input" placeholder="Search customers...">
+                            <button id="addCustomerBtn" class="primary-btn">
+                                <i class="fas fa-user-plus"></i>
+                                Add Customer
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Customer ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Address</th>
+                                    <th>Barangay</th>
+                                    <th>Age</th>
+                                    <th>Gender</th>
+                                    <th>Orders</th>
+                                    <th>Total Spent</th>
+                                    <th>Verification</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customersTableBody">
+                                <tr>
+                                    <td colspan="12" class="no-data">No customers found</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Members Section -->
+                <section id="membersSection" class="content-section">
+                    <div class="section-header">
+                        <h1>Member Management</h1>
+                        <button id="addMemberBtnHeader" class="primary-btn">
+                            <i class="fas fa-user-plus"></i>
+                            Add Member
+                        </button>
+                    </div>
+
+                    <div class="members-stats">
+                        <div class="stat-card">
+                            <h3 id="headAdminCount">0</h3>
+                            <p>Head Admins</p>
+                            <small>Max: 2</small>
+                        </div>
+                        <div class="stat-card">
+                            <h3 id="resellerCount">0</h3>
+                            <p>Resellers</p>
+                            <small>No limit</small>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Member ID</th>
+                                    <th>Username</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Created Date</th>
+                                    <th>Last Login</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="membersTableBody">
+                                <!-- Members will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Inventory Section -->
+                <section id="inventorySection" class="content-section">
+                    <div class="section-header">
+                        <h1>Inventory Management</h1>
+                        <button id="updateStockBtn" class="primary-btn">
+                            <i class="fas fa-sync"></i>
+                            Update Stock
+                        </button>
+                    </div>
+
+                    <div class="inventory-grid" id="inventoryGrid">
+                        <!-- Inventory will be loaded here -->
+                    </div>
+                </section>
+
+                <!-- Requests Section -->
+                <section id="requestsSection" class="content-section">
+                    <div class="section-header">
+                        <h1 id="requestsTitle">Requests</h1>
+                        <button id="newRequestBtn" class="primary-btn" style="display: none;">
+                            <i class="fas fa-plus"></i>
+                            New Request
+                        </button>
+                        <button id="requestReportBtn" class="primary-btn" style="display: none;">
+                            <i class="fas fa-file-alt"></i>
+                            Request Report
+                        </button>
+                    </div>
+
+                    <!-- Stock Requests (for resellers) -->
+                    <div id="stockRequestForm" class="request-form" style="display: none;">
+                        <div class="form-container">
+                            <h3>Stock Request Form</h3>
+                            <form id="stockRequestFormSubmit">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Product</label>
+                                        <select id="requestProductId" required>
+                                            <option value="">Select Product</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Quantity Needed</label>
+                                        <input type="number" id="requestQuantity" min="1" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Reason/Notes</label>
+                                    <textarea id="requestReason" placeholder="Explain why you need this stock..."></textarea>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="primary-btn">Submit Request</button>
+                                    <button type="button" class="secondary-btn" onclick="adminDashboard.cancelStockRequest()">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Report Requests (for head admin) -->
+                    <div id="reportRequestForm" class="request-form" style="display: none;">
+                        <div class="form-container">
+                            <h3>Request Report from Reseller</h3>
+                            <form id="reportRequestFormSubmit">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Reseller</label>
+                                        <select id="reportResellerId" required>
+                                            <option value="">Select Reseller</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Report Type</label>
+                                        <select id="reportType" required>
+                                            <option value="">Select Report Type</option>
+                                            <option value="pickup_dropoff">Pickup & Drop-off Report</option>
+                                            <option value="sales">Sales Report</option>
+                                            <option value="customer">Customer Report</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Date Range From</label>
+                                        <input type="date" id="reportDateFrom" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Date Range To</label>
+                                        <input type="date" id="reportDateTo" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Additional Notes</label>
+                                    <textarea id="reportRequestNotes" placeholder="Any specific requirements for the report..."></textarea>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="primary-btn">Request Report</button>
+                                    <button type="button" class="secondary-btn" onclick="adminDashboard.cancelReportRequest()">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Added reporting form for resellers to submit reports to admin -->
+<!-- This section should be added to the Reports section in admin.html -->
+
+<div id="resellerReportForm" class="request-form" style="display: none;">
+  <div class="form-container">
+    <h3>Submit Report to Admin</h3>
+    <form id="resellerReportFormSubmit">
+      <div class="form-group">
+        <label>Report Type</label>
+        <select id="resellerReportType" required>
+          <option value="">Select Report Type</option>
+          <option value="sales">Sales Report</option>
+          <option value="customer">Customer Feedback Report</option>
+          <option value="inventory">Inventory Status Report</option>
+          <option value="issue">Issue/Problem Report</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label>Report Title</label>
+        <input type="text" id="resellerReportTitle" placeholder="Brief title of your report" required>
+      </div>
+      
+      <div class="form-group">
+        <label>Report Content</label>
+        <textarea id="resellerReportContent" placeholder="Detailed description of your report..." required rows="6"></textarea>
+      </div>
+      
+      <div class="form-group">
+        <label>Attachments (Optional)</label>
+        <input type="file" id="resellerReportAttachment" accept="image/*,.pdf,.doc,.docx">
+        <small>You can attach images or documents to support your report</small>
+      </div>
+      
+      <div class="form-group">
+        <label>Priority Level</label>
+        <select id="resellerReportPriority">
+          <option value="low">Low</option>
+          <option value="medium" selected>Medium</option>
+          <option value="high">High</option>
+          <option value="urgent">Urgent</option>
+        </select>
+      </div>
+      
+      <div class="form-actions">
+        <button type="submit" class="primary-btn">Submit Report</button>
+        <button type="button" class="secondary-btn" onclick="adminDashboard.cancelResellerReport()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Reseller Reports List -->
+<div id="resellerReportsList" class="reports-list" style="display: none;">
+  <h3>My Submitted Reports</h3>
+  <div id="resellerReportsTable" class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Report ID</th>
+          <th>Type</th>
+          <th>Title</th>
+          <th>Priority</th>
+          <th>Status</th>
+          <th>Date Submitted</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="resellerReportsTableBody">
+        <tr>
+          <td colspan="7" class="no-data">No reports submitted yet</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+                    <!-- Requests Table -->
+                    <div id="requestsTable" class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr id="requestsTableHeader">
+                                    <!-- Headers will be set dynamically -->
+                                </tr>
+                            </thead>
+                            <tbody id="requestsTableBody">
+                                <tr>
+                                    <td colspan="7" class="no-data">No requests found</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Reports Section -->
+                <section id="reportsSection" class="content-section">
+                    <div class="section-header">
+                        <h1>Reports</h1>
+                        <button id="generateReportBtn" class="primary-btn" style="display: none;">
+                            <i class="fas fa-plus"></i>
+                            Generate Report
+                        </button>
+                    </div>
+
+                    <!-- Report Requests (for resellers) -->
+                    <div id="reportRequestsList" class="requests-list" style="display: none;">
+                        <h3>Report Requests from Head Admin</h3>
+                        <div id="reportRequestsTable" class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Request ID</th>
+                                        <th>Report Type</th>
+                                        <th>Date Range</th>
+                                        <th>Requested By</th>
+                                        <th>Date Requested</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reportRequestsTableBody">
+                                    <tr>
+                                        <td colspan="7" class="no-data">No report requests found</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Report Generation Form -->
+                    <div id="reportGenerationForm" class="report-form" style="display: none;">
+                        <div class="form-container">
+                            <h3 id="reportFormTitle">Generate Report</h3>
+                            <form id="reportForm">
+                                <input type="hidden" id="reportRequestId">
+                                <div class="form-group">
+                                    <label>Report Type</label>
+                                    <input type="text" id="reportTypeDisplay" readonly>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Date From</label>
+                                        <input type="date" id="reportFromDate" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Date To</label>
+                                        <input type="date" id="reportToDate" readonly>
+                                    </div>
+                                </div>
+                                
+                                <!-- Pickup & Drop-off Report Fields -->
+                                <div id="pickupDropoffFields" class="report-fields" style="display: none;">
+                                    <h4>Pickup & Drop-off Report</h4>
+                                    <div class="form-group">
+                                        <label>Total Pickups</label>
+                                        <input type="number" id="totalPickups" min="0" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Total Drop-offs</label>
+                                        <input type="number" id="totalDropoffs" min="0" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Customer Demographics Summary</label>
+                                        <textarea id="demographicsSummary" placeholder="Summary of customer age groups, gender distribution, and location patterns..."></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Average Delivery Time</label>
+                                        <input type="text" id="avgDeliveryTime" placeholder="e.g., 2-3 days">
+                                    </div>
+                                </div>
+
+                                <!-- Sales Report Fields -->
+                                <div id="salesReportFields" class="report-fields" style="display: none;">
+                                    <h4>Sales Report</h4>
+                                    <div class="form-group">
+                                        <label>Total Sales</label>
+                                        <input type="number" id="totalSalesAmount" step="0.01" min="0" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Number of Orders</label>
+                                        <input type="number" id="totalOrdersCount" min="0" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Top Selling Products</label>
+                                        <textarea id="topSellingProducts" placeholder="List top 5 selling products with quantities..."></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- Customer Report Fields -->
+                                <div id="customerReportFields" class="report-fields" style="display: none;">
+                                    <h4>Customer Report</h4>
+                                    <div class="form-group">
+                                        <label>New Customers</label>
+                                        <input type="number" id="newCustomersCount" min="0" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Returning Customers</label>
+                                        <input type="number" id="returningCustomersCount" min="0" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Customer Feedback Summary</label>
+                                        <textarea id="customerFeedback" placeholder="Summary of customer feedback, complaints, and suggestions..."></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Additional Notes</label>
+                                    <textarea id="reportNotes" placeholder="Any additional information or observations..."></textarea>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="submit" class="primary-btn">Submit Report</button>
+                                    <button type="button" class="secondary-btn" onclick="adminDashboard.cancelReportGeneration()">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Completed Reports List -->
+                    <div id="completedReportsList" class="reports-list">
+                        <h3>Reports</h3>
+                        <div id="completedReportsTable" class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Report ID</th>
+                                        <th>Type</th>
+                                        <th>Date Range</th>
+                                        <th>Generated By</th>
+                                        <th>Date Generated</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="completedReportsTableBody">
+                                    <tr>
+                                        <td colspan="6" class="no-data">No reports found</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Analytics Section -->
+                <section id="analyticsSection" class="content-section">
+                    <div class="section-header">
+                        <h1>Analytics & Reports</h1>
+                        <div class="date-range-picker">
+                            <input type="date" id="startDate" class="date-input">
+                            <span>to</span>
+                            <input type="date" id="endDate" class="date-input">
+                            <button id="applyDateRange" class="secondary-btn">Apply</button>
+                        </div>
+                    </div>
+
+                    <div class="analytics-grid">
+                        <div class="chart-container">
+                            <h3>Sales Overview</h3>
+                            <div id="salesChart" class="chart-placeholder">
+                                <p>Sales chart will be displayed here</p>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <h3>Product Performance</h3>
+                            <div id="productChart" class="chart-placeholder">
+                                <p>Product performance chart will be displayed here</p>
+                            </div>
+                        </div>
+                        
+                        <div class="profit-summary" id="resellerProfit">
+                            <h3>Your Profit Summary</h3>
+                            <div class="profit-stats">
+                                <div class="profit-item">
+                                    <span>Total Sales:</span>
+                                    <span id="resellerTotalSales">₱0</span>
+                                </div>
+                                <div class="profit-item">
+                                    <span>Commission (15%):</span>
+                                    <span id="resellerCommission">₱0</span>
+                                </div>
+                                <div class="profit-item">
+                                    <span>Orders Count:</span>
+                                    <span id="resellerOrders">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Settings Section -->
+                <section id="settingsSection" class="content-section">
+                    <div class="section-header">
+                        <h1>Settings</h1>
+                    </div>
+
+                    <div class="settings-grid">
+                        <div class="setting-card">
+                            <h3>Store Information</h3>
+                            <form id="storeSettingsForm" class="settings-form">
+                                <div class="form-group">
+                                    <label>Store Name</label>
+                                    <input type="text" id="storeName" value="Clever Clothing">
+                                </div>
+                                <div class="form-group">
+                                    <label>Store Address</label>
+                                    <textarea id="storeAddress">Tarlac City, Central Luzon, Philippines</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Contact Phone</label>
+                                    <input type="text" id="storePhone" value="+63 123 456 7893">
+                                </div>
+                                <div class="form-group">
+                                    <label>Contact Email</label>
+                                    <input type="email" id="storeEmail" value="cleverclothing@gmail.com">
+                                </div>
+                                <button type="submit" class="primary-btn">Save Changes</button>
+                            </form>
+                        </div>
+
+                        <div class="setting-card">
+                            <h3>Change Password</h3>
+                            <form id="passwordChangeForm" class="settings-form">
+                                <div class="form-group">
+                                    <label>Current Password</label>
+                                    <div class="password-input-container">
+                                        <input type="password" id="currentPassword" required>
+                                        <button type="button" class="password-toggle" onclick="togglePasswordField('currentPassword')">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>New Password</label>
+                                    <div class="password-input-container">
+                                        <input type="password" id="newPassword" required>
+                                        <button type="button" class="password-toggle" onclick="togglePasswordField('newPassword')">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Confirm New Password</label>
+                                    <div class="password-input-container">
+                                        <input type="password" id="confirmPassword" required>
+                                        <button type="button" class="password-toggle" onclick="togglePasswordField('confirmPassword')">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <button type="submit" class="primary-btn">Change Password</button>
+                            </form>
+                        </div>
+
+                        <div class="setting-card" id="systemSettings">
+                            <h3>System Settings</h3>
+                            <form id="systemSettingsForm" class="settings-form">
+                                <div class="form-group">
+                                    <label>Delivery Fee</label>
+                                    <input type="number" id="deliveryFee" value="50">
+                                </div>
+                                <div class="form-group">
+                                    <label>Reseller Commission (%)</label>
+                                    <input type="number" id="resellerCommissionSetting" value="15" min="0" max="50">
+                                </div>
+                                <div class="form-group">
+                                    <label>Order Auto-Approval</label>
+                                    <select id="autoApproval">
+                                        <option value="false">Manual Approval</option>
+                                        <option value="true">Auto Approve</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="primary-btn">Save Settings</button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Add/Edit Product Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="productModalTitle">Add Product</h2>
+            <form id="productForm" class="modal-form">
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" id="productName" required>
+                </div>
+                <div class="form-group">
+                    <label>Price (₱)</label>
+                    <input type="number" id="productPrice" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="productDescription" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="productCategory" required>
+                        <option value="shirts">Shirts</option>
+                        <option value="pants">Pants</option>
+                        <option value="accessories">Accessories</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Stock Quantity</label>
+                    <input type="number" id="productStock" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label>Product Image</label>
+                    <input type="file" id="productImage" accept="image/*">
+                    <small>Leave empty to use placeholder image</small>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="secondary-btn" onclick="closeModal('productModal')">Cancel</button>
+                    <button type="submit" class="primary-btn">Save Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add/Edit Customer Modal -->
+    <div id="customerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="customerModalTitle">Add Customer</h2>
+            <form id="customerForm" class="modal-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Customer ID</label>
+                        <input type="text" id="customerId" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="customerName" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="customerEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" id="customerPhone" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Complete Address</label>
+                    <textarea id="customerAddress" required></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Barangay</label>
+                        <input type="text" id="customerBarangay" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <select id="customerGender" required>
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="number" id="customerAge" min="18" max="100" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Government ID</label>
+                        <input type="file" id="customerGovId" accept="image/*">
+                        <small>Upload a clear photo of government ID</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Selfie Verification</label>
+                        <input type="file" id="customerSelfie" accept="image/*">
+                        <small>Upload a clear selfie photo</small>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="secondary-btn" onclick="closeModal('customerModal')">Cancel</button>
+                    <button type="submit" class="primary-btn">Save Customer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add/Edit Member Modal -->
+    <div id="memberModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="memberModalTitle">Add Member</h2>
+            <form id="memberForm" class="modal-form">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="memberUsername" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="password-input-container">
+                        <input type="password" id="memberPassword" required>
+                        <button type="button" class="password-toggle" onclick="togglePasswordField('memberPassword')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Role</label>
+                    <select id="memberRole" required>
+                        <option value="">Select Role</option>
+                        <option value="head_admin">Head Admin</option>
+                        <option value="reseller">Reseller</option>
+                    </select>
+                    <small id="headAdminWarning" style="display: none; color: #ff4757;">Maximum 2 Head Admins allowed</small>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="secondary-btn" onclick="closeModal('memberModal')">Cancel</button>
+                    <button type="submit" class="primary-btn">Save Member</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content large-modal">
+            <span class="close">&times;</span>
+            <h2>Order Details</h2>
+            <div id="orderDetailsContent" class="order-details">
+                <!-- Order details will be loaded here -->
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="secondary-btn" onclick="closeModal('orderModal')">Close</button>
+                <button type="button" class="primary-btn" id="updateOrderStatus">Update Status</button>
+                <button type="button" class="primary-btn" id="generatePreInvoiceBtn" style="display: none;">Generate Pre-Invoice</button>
+                <button type="button" class="primary-btn" id="generateRealInvoiceBtn" style="display: none;">Generate Real Invoice</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Details Modal -->
+    <div id="customerDetailsModal" class="modal">
+        <div class="modal-content large-modal">
+            <span class="close">&times;</span>
+            <h2>Customer Details</h2>
+            <div id="customerDetailsContent" class="customer-details">
+                <!-- Customer details will be loaded here -->
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="secondary-btn" onclick="closeModal('customerDetailsModal')">Close</button>
+                <button type="button" class="primary-btn" id="editCustomerBtn">Edit Customer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Invoice Details Modal -->
+    <div id="invoiceModal" class="modal">
+        <div class="modal-content large-modal">
+            <span class="close">&times;</span>
+            <h2 id="invoiceModalTitle">Invoice Details</h2>
+            <div id="invoiceDetailsContent" class="invoice-details">
+                <!-- Invoice details will be loaded here -->
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="secondary-btn" onclick="closeModal('invoiceModal')">Close</button>
+                <button type="button" class="primary-btn" id="printInvoiceBtn">Print Invoice</button>
+                <button type="button" class="primary-btn" id="verifyInvoiceBtn" style="display: none;">Verify with Pre-Invoice</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Verification Modal -->
+    <div id="verificationModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Customer Verification</h2>
+            <div id="verificationContent" class="verification-content">
+                <!-- Verification images will be loaded here -->
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="secondary-btn" onclick="closeModal('verificationModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Invoice Verification Modal -->
+    <div id="invoiceVerificationModal" class="modal">
+        <div class="modal-content large-modal">
+            <span class="close">&times;</span>
+            <h2>Invoice Verification</h2>
+            <div id="invoiceVerificationContent" class="invoice-verification-content">
+                <!-- Invoice comparison will be loaded here -->
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="secondary-btn" onclick="closeModal('invoiceVerificationModal')">Close</button>
+                <button type="button" class="primary-btn" id="markInvoiceVerifiedBtn">Mark as Verified</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stock Update Modal -->
+    <div id="stockModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Update Stock</h2>
+            <form id="stockForm" class="modal-form">
+                <div class="form-group">
+                    <label>Product</label>
+                    <select id="stockProductId" required>
+                        <option value="">Select Product</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Current Stock</label>
+                    <input type="number" id="currentStock" readonly>
+                </div>
+                <div class="form-group">
+                    <label>New Stock Quantity</label>
+                    <input type="number" id="newStock" min="0" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="secondary-btn" onclick="closeModal('stockModal')">Cancel</button>
+                    <button type="submit" class="primary-btn">Update Stock</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+    <script src="supabaseClient.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

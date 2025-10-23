@@ -1,0 +1,807 @@
+<!-- MultipleFiles/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clever Clothing</title>
+    <link rel="stylesheet" href="user.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+     <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <div class="logo-box">
+                    <img src="logo.png.png" alt="CL" class="logo-image">
+                </div>
+                <span>CLEVER CLOTHING</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#products" class="nav-link">Products</a></li>
+                <li><a href="#faqs" class="nav-link">FAQs</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-icons">
+                <div class="wishlist-icon" onclick="showWishlistModal()">
+                    <i class="fas fa-heart"></i>
+                    <span class="wishlist-count">0</span>
+                </div>
+                <div class="cart-icon" onclick="showCartModal()">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count">0</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2>Special Product</h2>
+            <p>Discover our latest collection of premium quality shirts designed for the modern individual. Stand out with style.</p>
+            <button class="cta-btn">Shop now</button>
+        </div>
+        <div class="hero-image">
+            <div class="image-slider">
+                <div class="slide active">
+                    <img src="what if.png" alt="Featured Shirt" class="slider-image">
+                    <div class="slide-overlay">
+                        <h3>Premium Collection</h3>
+                        <p>Best Seller</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="be clever.jpg" alt="Be Clever Shirt" class="slider-image">
+                    <div class="slide-overlay">
+                        <h3>Be Clever Enough</h3>
+                        <p>Best Seller</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="clever.jpg" alt="Clever Shirt" class="slider-image">
+                    <div class="slide-overlay">
+                        <h3>Clever Premium</h3>
+                        <p>Best Seller</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            
+            <div class="about-item">
+                <div class="about-content">
+                    <h3>How it started?</h3>
+                    <p>Our journey began with a simple idea: to create clothing that combines comfort, style, and intelligence. From humble beginnings to becoming a trusted brand, we've always focused on quality and innovation.</p>
+                    <button class="learn-more" onclick="showLearnMore('How it started', 'Our journey began in 2020 when our founder noticed a gap in the market for intelligent, comfortable clothing. Starting from a small workshop, we focused on creating designs that speak to the modern individual. Through dedication, quality craftsmanship, and listening to our customers, we have grown into the brand you see today. Every piece tells a story of innovation and passion.', 'lightbulb.png')">Learn more</button>
+                </div>
+                <div class="about-image">
+                    <img src="lightbulb.png" alt="How it started" class="about-img">
+                </div>
+            </div>
+
+            <div class="about-item reverse">
+                <div class="about-content">
+                    <h3>Where it is located?</h3>
+                    <p>Located in the heart of Tarlac City, our flagship store serves as the hub for our operations. Visit us to experience our complete collection and personalized service.</p>
+                    <button class="learn-more" onclick="showLearnMore('Our Location', 'Our main store is strategically located in Tarlac City, Central Luzon, making it easily accessible to our customers. The location was carefully chosen for its vibrant community and accessibility. We also have partner stores across the region, bringing Clever Clothing closer to you. Visit us to see our full collection and experience our commitment to quality firsthand.', 'place.jpg')">Learn more</button>
+                </div>
+                <div class="about-image">
+                    <img src="place.jpg" alt="Store Location" class="about-img">
+                </div>
+            </div>
+
+            <div class="about-item">
+                <div class="about-content">
+                    <h3>The Business</h3>
+                    <p>Clever Clothing is more than just a brand - we're a community of individuals who believe in expressing intelligence through style. Our business model focuses on sustainable practices and customer satisfaction.</p>
+                    <button class="learn-more" onclick="showLearnMore('Our Business', 'Clever Clothing operates on the principle of intelligent fashion. We combine modern designs with traditional craftsmanship, ensuring each piece meets our high standards. Our business model emphasizes sustainability, fair labor practices, and community engagement. We work directly with local suppliers and maintain ethical production standards. Our goal is not just to sell clothes, but to build lasting relationships with our customers.', 'sie.jpg')">Learn more</button>
+                </div>
+                <div class="about-image">
+                    <img src="sie.jpg" alt="Our Business" class="about-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <div class="container">
+            <h2 class="section-title">Best Sellers</h2>
+            
+            <div class="category-header">
+                <h3>Featured Collection</h3>
+                <button class="see-all" onclick="showAllProductsPage()">See all (4)</button>
+            </div>
+            
+            <div class="products-grid" id="productsGrid">
+                <div class="product-card" data-id="1">
+                    <div class="product-image">
+                        <img src="be clever.jpg" alt="Be Clever Enough" class="product-img">
+                        <button class="wishlist-btn" onclick="toggleWishlist(1)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <h4>Be Clever Enough</h4>
+                        <p class="price">₱550</p>
+                        <div class="product-actions">
+                            <button class="add-to-cart" onclick="addToCart(1)">Add to Cart</button>
+                            <button class="buy-now" onclick="buyNow(1)">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-id="3">
+                    <div class="product-image">
+                        <img src="what if.png" alt="What IT?" class="product-img">
+                        <button class="wishlist-btn" onclick="toggleWishlist(3)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <h4>What IT?</h4>
+                        <p class="price">₱350</p>
+                        <div class="product-actions">
+                            <button class="add-to-cart" onclick="addToCart(3)">Add to Cart</button>
+                            <button class="buy-now" onclick="buyNow(3)">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-id="4">
+                    <div class="product-image">
+                        <img src="clever.jpg" alt="Clever" class="product-img">
+                        <button class="wishlist-btn" onclick="toggleWishlist(4)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <h4>Clever</h4>
+                        <p class="price">₱550</p>
+                        <div class="product-actions">
+                            <button class="add-to-cart" onclick="addToCart(4)">Add to Cart</button>
+                            <button class="buy-now" onclick="buyNow(4)">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- All Products Page (Hidden by default) -->
+    <section id="all-products" class="all-products-page" style="display: none;">
+        <div class="container">
+            <div class="page-header">
+                <button class="back-btn" onclick="goBackHome()">Back to Home</button>
+                <h2 class="page-title">All Products</h2>
+            </div>
+            
+            <div class="all-products-grid">
+                <div class="product-card" data-id="1">
+                    <div class="product-image">
+                        <img src="be clever.jpg" alt="Be Clever Enough" class="product-img">
+                        <button class="wishlist-btn" onclick="toggleWishlist(1)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <h4>Be Clever Enough</h4>
+                        <p class="price">₱550</p>
+                        <div class="product-actions">
+                            <button class="add-to-cart" onclick="addToCart(1)">Add to Cart</button>
+                            <button class="buy-now" onclick="buyNow(1)">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-id="2">
+                    <div class="product-image">
+                        <img src="sie.jpg" alt="Sie/Te T-shirt" class="product-img">
+                        <button class="wishlist-btn" onclick="toggleWishlist(2)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <h4>Sie/Te T-shirt</h4>
+                        <p class="price">₱350</p>
+                        <div class="product-actions">
+                            <button class="add-to-cart" onclick="addToCart(2)">Add to Cart</button>
+                            <button class="buy-now" onclick="buyNow(2)">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-id="3">
+                    <div class="product-image">
+                        <img src="what if.png" alt="What IT?" class="product-img">
+                        <button class="wishlist-btn" onclick="toggleWishlist(3)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <h4>What IT?</h4>
+                        <p class="price">₱350</p>
+                        <div class="product-actions">
+                            <button class="add-to-cart" onclick="addToCart(3)">Add to Cart</button>
+                            <button class="buy-now" onclick="buyNow(3)">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-id="4">
+                    <div class="product-image">
+                        <img src="clever.jpg" alt="Clever" class="product-img">
+                        <button class="wishlist-btn" onclick="toggleWishlist(4)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="product-info">
+                        <h4>Clever</h4>
+                        <p class="price">₱550</p>
+                        <div class="product-actions">
+                            <button class="add-to-cart" onclick="addToCart(4)">Add to Cart</button>
+                            <button class="buy-now" onclick="buyNow(4)">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQs Section -->
+    <section id="faqs" class="faqs">
+        <div class="container">
+            <h2 class="section-title">FAQs</h2>
+            <div class="faqs-grid">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What materials are used in your shirts?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>We use premium quality cotton blends and sustainable materials to ensure comfort and durability in all our products.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How do I know which size to order?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Please refer to our size guide available on each product page. If you're unsure, contact us for personalized sizing assistance.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What is your return policy?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>The shop does not refund any item. We only replace the item if there are manufacturing defects or size issues within 7 days of purchase.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How long does delivery take?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Delivery within Tarlac City takes 1-2 business days. Other locations may take 3-5 business days depending on the area.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Do you offer bulk orders or discounts?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, we offer discounts for bulk orders. Please contact us directly to discuss pricing for orders of 10 or more items.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Can I customize or personalize my shirt?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>We offer limited customization options. Please contact us with your requirements and we'll let you know what's possible.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <div class="logo-box-footer">
+                            <img src="logo.png" alt="CL" class="logo-image">
+                        </div>
+                        <span>CLEVER CLOTHING</span>
+                    </div>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> Tarlac City, Central Luzon, Philippines</p>
+                        <p><i class="fas fa-phone"></i> +63 123 456 7893</p>
+                        <p><i class="fas fa-envelope"></i> cleverclothing@gmail.com</p>
+                        <p><i class="fas fa-clock"></i> 8:00 AM - 10:00 PM</p>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="link-column">
+                        <h4>Navigation</h4>
+                        <ul>
+                            <li><a href="#home" class="footer-nav-link">Home</a></li>
+                            <li><a href="#about" class="footer-nav-link">About</a></li>
+                            <li><a href="#products" class="footer-nav-link">Products</a></li>
+                            <li><a href="#faqs" class="footer-nav-link">FAQs</a></li>
+                            <li><a href="#contact" class="footer-nav-link">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="newsletter">
+                    <h4>Would like to talk about your future project?</h4>
+                    <form class="newsletter-form" id="contactForm">
+                        <input type="email" placeholder="Your email" id="contactEmail" required>
+                        <textarea placeholder="Your message" id="contactMessage" required></textarea>
+                        <button type="submit">Send</button>
+                    </form>
+                    <div class="social-links">
+                        <h5>Follow Us!</h5>
+                        <div class="social-icons">
+                            <a href="https://facebook.com/cleverclothing" target="_blank"><i class="fab fa-facebook"></i></a>
+                            <a href="#" onclick="showInstagramMessage()"><i class="fab fa-instagram"></i></a>
+                            <a href="https://tiktok.com/@cleverclothing" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-divider"></div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Clever Clothing • Privacy • Terms</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Wishlist Modal -->
+    <div id="wishlistModal" class="modal">
+        <div class="modal-content wishlist-content">
+            <span class="close">&times;</span>
+            <div class="wishlist-header">
+                <h2>My Wishlist</h2>
+            </div>
+            <div class="wishlist-items" id="wishlistItems"></div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content cart-content">
+            <span class="close">&times;</span>
+            <div class="cart-header">
+                <h2>Shopping Cart</h2>
+                <div class="add-item-btn" onclick="showProducts()">Add Item</div>
+            </div>
+            <div class="cart-items" id="cartItems"></div>
+            <div class="cart-summary">
+                <div class="cart-total">
+                    <span>Total: </span>
+                    <span id="cartTotalAmount">₱0.00</span>
+                </div>
+                <button class="checkout-from-cart-btn" onclick="proceedToCheckoutFromCart()">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="product-detail">
+                <div class="product-images">
+                    <div class="main-image" id="mainProductImage">
+                        <img src="/placeholder.svg" alt="Product" id="mainProductImg" class="product-detail-img">
+                    </div>
+                    <div class="thumbnail-images">
+                        <div class="thumbnail active" onclick="changeImage(0)">
+                            <img src="/placeholder.svg" alt="Product" id="thumb1Img" class="thumbnail-img">
+                        </div>
+                        <div class="thumbnail" onclick="changeImage(1)">
+                            <img src="/placeholder.svg" alt="Product" id="thumb2Img" class="thumbnail-img">
+                        </div>
+                    </div>
+                </div>
+                <div class="product-details">
+                    <h2 id="productTitle">Be Clever Enough Shirt</h2>
+                    <p id="productDescription">Premium quality shirt with clever design</p>
+                    <div class="price-section">
+                        <span class="current-price" id="productPrice">₱550.00</span>
+                    </div>
+                    <div class="product-options">
+                        <div class="size-selector">
+                            <label>Choose Size</label>
+                            <select id="sizeSelect">
+                                <option value="XS">XS</option>
+                                <option value="S">S</option>
+                                <option value="M" selected>M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                            </select>
+                        </div>
+                        <div class="quantity-selector">
+                            <label>Quantity</label>
+                            <div class="quantity-controls">
+                                <button onclick="decreaseQuantity()">-</button>
+                                <input type="number" id="quantity" value="1" min="1">
+                                <button onclick="increaseQuantity()">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="add-to-cart-btn" onclick="addToCartFromModal()">Add to Cart</button>
+                        <button class="checkout-btn" onclick="proceedToCheckout()">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Related Products -->
+            <div class="related-products">
+                <h3>Related products</h3>
+                <div class="related-grid">
+                    <div class="related-item" onclick="viewProduct(3)">
+                        <img src="what if.png" alt="What IT?" class="related-img">
+                        <h4>What IT?</h4>
+                        <p>₱350.00</p>
+                        <div class="related-actions">
+                            <button class="related-cart" onclick="addToCart(3); event.stopPropagation();">Add to Cart</button>
+                            <button class="related-wishlist" onclick="toggleWishlist(3); event.stopPropagation();">Wishlist</button>
+                        </div>
+                    </div>
+                    <div class="related-item" onclick="viewProduct(2)">
+                        <img src="sie.jpg" alt="Sie/Te Oversized Shirt" class="related-img">
+                        <h4>Sie/Te Oversized Shirt</h4>
+                        <p>₱350.00</p>
+                        <div class="related-actions">
+                            <button class="related-cart" onclick="addToCart(2); event.stopPropagation();">Add to Cart</button>
+                            <button class="related-wishlist" onclick="toggleWishlist(2); event.stopPropagation();">Wishlist</button>
+                        </div>
+                    </div>
+                    <div class="related-item" onclick="viewProduct(4)">
+                        <img src="clever.jpg" alt="Clever Premium" class="related-img">
+                        <h4>Clever Premium</h4>
+                        <p>₱550.00</p>
+                        <div class="related-actions">
+                            <button class="related-cart" onclick="addToCart(4); event.stopPropagation();">Add to Cart</button>
+                            <button class="related-wishlist" onclick="toggleWishlist(4); event.stopPropagation();">Wishlist</button>
+                        </div>
+                    </div>
+                    <div class="related-item" onclick="viewProduct(1)">
+                        <img src="be clever.jpg" alt="Be Clever Enough" class="related-img">
+                        <h4>Be Clever Enough</h4>
+                        <p>₱550.00</p>
+                        <div class="related-actions">
+                            <button class="related-cart" onclick="addToCart(1); event.stopPropagation();">Add to Cart</button>
+                            <button class="related-wishlist" onclick="toggleWishlist(1); event.stopPropagation();">Wishlist</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content checkout-content">
+            <span class="close">&times;</span>
+            <div class="checkout-container">
+                <div class="checkout-left">
+                    <h2>Checkout</h2>
+                    
+                    <!-- Order Summary -->
+                    <div class="order-summary">
+                        <h3>Order Summary</h3>
+                        <div class="checkout-items" id="checkoutItems"></div>
+                    </div>
+                    
+                    <!-- Delivery Options -->
+                    <div class="delivery-options">
+                        <h3>Your preferred delivery option for this order?</h3>
+                        <div class="delivery-methods">
+                            <label class="delivery-method">
+                                <input type="radio" name="delivery" value="delivery" checked>
+                                <div class="method-info">
+                                    <span class="method-icon">🚚</span>
+                                    <div>
+                                        <strong>Delivery</strong>
+                                        <p>Standard delivery service to your designated address</p>
+                                    </div>
+                                    <span class="method-price">₱50.00</span>
+                                </div>
+                            </label>
+                            
+                            <label class="delivery-method">
+                                <input type="radio" name="delivery" value="pickup">
+                                <div class="method-info">
+                                    <span class="method-icon">🏪</span>
+                                    <div>
+                                        <strong>Pick up at store</strong>
+                                        <p>You can pick up your order at our physical store</p>
+                                    </div>
+                                    <span class="method-price">Free (₱0.00)</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Drop-off Locations (for pickup) -->
+                    <div class="dropoff-locations" id="dropoffLocations" style="display: none;">
+                        <h3>Drop-Off Location</h3>
+                        <p>Which store would you choose to pick up your order from?</p>
+                        <div class="location-grid">
+                            <label class="location-option">
+                                <input type="radio" name="location" value="loc1">
+                                <div class="location-info">
+                                    <strong>Clever Clothing Store</strong>
+                                    <p>123 Main St<br>Tarlac City, 2300</p>
+                                    <span class="location-price">₱0.00</span>
+                                </div>
+                            </label>
+                            <label class="location-option">
+                                <input type="radio" name="location" value="loc2">
+                                <div class="location-info">
+                                    <strong>Clever Clothing Store</strong>
+                                    <p>456 Plaza St<br>Tarlac City, 2300</p>
+                                    <span class="location-price">₱0.00</span>
+                                </div>
+                            </label>
+                            <label class="location-option">
+                                <input type="radio" name="location" value="loc3">
+                                <div class="location-info">
+                                    <strong>Clever Clothing Store</strong>
+                                    <p>789 Commerce Ave<br>Tarlac City, 2300</p>
+                                    <span class="location-price">₱0.00</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Recipient Information -->
+                    <div class="recipient-info">
+                        <h3>Recipient Information</h3>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <input type="text" placeholder="Full Name" required id="fullName" pattern="[A-Za-z\s]+" title="Full name should only contain letters">
+                                <div class="phone-input-group">
+                                    <span class="phone-prefix">+63</span>
+                                    <input type="tel" placeholder="Phone Number (e.g., 9123456789)" required id="phoneNumber" pattern="[0-9]{10}" title="Please enter a 10-digit phone number (e.g., 9123456789)">
+                                </div>
+                            </div>
+                            <input type="email" placeholder="Email Address" required id="emailAddress">
+                            <div class="form-row">
+                                <input type="text" placeholder="Province" required id="province">
+                                <input type="text" placeholder="City/Municipality" required id="city">
+                            </div>
+                            <div class="form-row">
+                                <input type="text" placeholder="Street" required id="street">
+                                <input type="text" placeholder="Zip Code" required id="zipCode">
+                                <input type="text" placeholder="House Number (Optional)" id="houseNumber">
+                            </div>
+                            <textarea placeholder="Complete Address" required id="completeAddress"></textarea>
+                            <div class="form-row">
+                                <input type="text" placeholder="Barangay" required id="barangaySelect">
+                                <select required id="genderSelect">
+                                    <option value="">Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                                <input type="number" placeholder="Age" required id="ageInput">
+                            </div>
+                            <div class="phone-input-group">
+                                <span class="phone-prefix">+63</span>
+                                <input type="tel" placeholder="Alternative Contact Number (e.g., 9123456789)" required id="altContactNumber" pattern="[0-9]{10}" title="Alternative contact in case you're not available">
+                            </div>
+                            <textarea placeholder="Notes for driver or special requests (Optional)" id="deliveryNotes"></textarea>
+                        </div>
+                        <div class="terms-checkbox">
+                            <input type="checkbox" id="terms" required>
+                            <label for="terms">I agree to the terms and conditions and understand that all data provided will only be used for delivery verification purposes.</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checkout-right">
+                    <!-- Payment Method -->
+                    <div class="payment-method">
+                        <h3>Payment Method</h3>
+                        <div class="payment-note">
+                            <p><strong>Note:</strong> Admin hasn't allowed bank card payments (Visa, Mastercard, etc.) for online purchases yet. Only e-wallets and cash payments are available.</p>
+                        </div>
+                        <div class="payment-options">
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="gcash" checked>
+                                <span>GCash</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="maya">
+                                <span>Maya</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="gotyme">
+                                <span>GoTyme</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="cash">
+                                <span>Cash</span>
+                            </label>
+                        </div>
+                        <div class="cash-note" id="cashNote" style="display: none;">
+                            <p><strong>Cash Payment Note:</strong> Place an order only if you are already in the store or nearby.</p>
+                        </div>
+                        
+                        <!-- Payment Method Selection -->
+                        <div class="payment-method-selection" id="paymentMethodSelection">
+                            <h4>Choose Payment Method:</h4>
+                            <div class="method-options">
+                                <label class="method-option">
+                                    <input type="radio" name="paymentMethod" value="qr" checked>
+                                    <span>Scan QR Code</span>
+                                </label>
+                                <label class="method-option">
+                                    <input type="radio" name="paymentMethod" value="manual">
+                                    <span>Manual Input</span>
+                                </label>
+                            </div>
+                            
+                            <div class="qr-code-section" id="qrCodeSection">
+                                <img src="qr-code.jpg" alt="QR Code" class="qr-code-image">
+                                <p>Scan this QR code with your e-wallet app</p>
+                            </div>
+                            
+                            <div class="manual-input-section" id="manualInputSection" style="display: none;">
+                                <input type="text" placeholder="Account Number/Phone Number" id="accountNumber">
+                                <input type="text" placeholder="Account Name" id="accountName">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Summary -->
+                    <div class="checkout-summary">
+                        <h3>Summary</h3>
+                        <div class="summary-line">
+                            <span>Subtotal</span>
+                            <span id="subtotalAmount">₱550.00</span>
+                        </div>
+                        <div class="summary-line">
+                            <span>Delivery Fee</span>
+                            <span id="deliveryFeeAmount">₱50.00</span>
+                        </div>
+                        <div class="summary-line total">
+                            <span><strong>TOTAL</strong></span>
+                            <span id="totalAmount"><strong>₱600.00</strong></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Delivery Details -->
+                    <div class="delivery-details" id="deliveryDetails">
+                        <h3>Delivery details</h3>
+                        <div class="delivery-info" id="deliveryInfo">
+                            <p><strong>Estimated delivery</strong></p>
+                            <p>Within city delivery service to your designated address 2:00 PM - 4:30 PM</p>
+                        </div>
+                        <div class="payment-info" id="paymentInfo">
+                            <p><strong>Payment</strong></p>
+                            <p>GCash payment accepted for online orders</p>
+                        </div>
+                        <div class="refund-policy">
+                            <p><strong>Important:</strong> The shop does not refund any item. We only replace the item.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Government ID -->
+                    <div class="government-id">
+                        <h3>Government ID</h3>
+                        <p>Take a photo of your government ID for identity verification. Only license, Passport or Social Security ID is acceptable.</p>
+                        <div class="id-upload">
+                            <button class="upload-btn" onclick="captureGovId()">Take Photo of ID</button>
+                            <div class="upload-status" id="govIdStatus"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Selfie Verification -->
+                    <div class="photo-verification">
+                        <h3>Selfie Verification</h3>
+                        <div class="photo-upload">
+                            <p>Take a real-time selfie to complete identity verification</p>
+                            <button class="upload-btn" onclick="captureSelfie()">Take Selfie</button>
+                            <div class="upload-status" id="selfieStatus"></div>
+                        </div>
+                    </div>
+                    
+                    <button class="confirm-btn" onclick="confirmOrder()">Confirm Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <!-- Cart Notification -->
+    <div id="cartNotification" class="cart-notification">
+        <div class="cart-notification-content">
+            <span id="cartNotificationText">Item added to cart!</span>
+        </div>
+    </div>
+
+    <!-- Pre-Invoice Modal -->
+    <div id="preInvoiceModal" class="modal">
+        <div class="modal-content invoice-content">
+            <span class="close">&times;</span>
+            <div class="invoice-container" id="invoiceContainer">
+                <!-- Invoice content will be generated here -->
+            </div>
+            <div class="invoice-actions">
+                <button class="download-btn" onclick="downloadInvoice()">Download Invoice</button>
+                <button class="print-btn" onclick="printInvoice()">Print Invoice</button>
+                <button class="okay-btn" onclick="closeInvoiceAndShowThankYou()">Okay</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Learn More Modal -->
+    <div id="learnMoreModal" class="modal">
+        <div class="modal-content learn-more-content">
+            <span class="close">&times;</span>
+            <div class="learn-more-container">
+                <h2 id="learnMoreTitle"></h2>
+                <div class="learn-more-image-container">
+                    <img id="learnMoreImage" src="/placeholder.svg" alt="Learn More Image">
+                </div>
+                <p id="learnMoreContent"></p>
+                <button class="okay-btn" onclick="closeLearnMore()">Got it!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thank You Modal -->
+    <div id="thankYouModal" class="modal">
+        <div class="modal-content thank-you-content">
+            <div class="thank-you-container">
+                <div class="thank-you-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2>Thank You for Purchasing from Us!</h2>
+                <p>Your order has been completed successfully. We appreciate your business!</p>
+                <button class="okay-btn" onclick="closeThankYou()">Awesome!</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+    <script src="supabaseClient.js"></script>
+    <script src="user.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</body>
+</html>
